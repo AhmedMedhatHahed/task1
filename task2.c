@@ -6,7 +6,7 @@
 #define MAX_NAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 
-// User struct
+
 struct User {
     char username[MAX_NAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
@@ -18,7 +18,7 @@ struct User {
     } status;
 };
 
-// Function to register a new user
+
 void registerUser(struct User users[], int *numUsers) {
     if (*numUsers >= MAX_USERS) {
         printf("Maximum number of users reached.\n");
@@ -44,7 +44,6 @@ bool isUserActive(struct User user) {
     return user.status.flag.active;
 }
 
-// Function to perform user login
 void loginUser(struct User users[], int numUsers) {
     char username[MAX_NAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
