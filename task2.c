@@ -1,102 +1,76 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 
-#define MAX_USERS 10
-#define MAX_NAME_LENGTH 20
-#define MAX_PASSWORD_LENGTH 20
-
-
-struct User {
-    char username[MAX_NAME_LENGTH];
-    char password[MAX_PASSWORD_LENGTH];
-    union UserStatus {
-        struct Flag {
-            bool active;
-        } flag;
-        int value;
-    } status;
-};
-
-
-void registerUser(struct User users[], int *numUsers) {
-    if (*numUsers >= MAX_USERS) {
-        printf("Maximum number of users reached.\n");
-        return;
-    }
-    
-    struct User newUser;
-    printf("Enter username: ");
-    scanf("%s", newUser.username);
-    printf("Enter password: ");
-    scanf("%s", newUser.password);
-    printf("Enter user status (0 for false, 1 for true): ");
-    scanf("%d", &newUser.status.value);
-    
-    users[*numUsers] = newUser;
-    (*numUsers)++;
-    
-    printf("User registered successfully.\n");
-}
-
-// Function to check if a user is active
-bool isUserActive(struct User user) {
-    return user.status.flag.active;
-}
-
-void loginUser(struct User users[], int numUsers) {
-    char username[MAX_NAME_LENGTH];
-    char password[MAX_PASSWORD_LENGTH];
-    
-    printf("Enter username: ");
-    scanf("%s", username);
-    printf("Enter password: ");
-    scanf("%s", password);
-    
-    for (int i = 0; i < numUsers; i++) {
-        if (strcmp(users[i].username, username) == 0 &&
-            strcmp(users[i].password, password) == 0) {
-            bool isActive = isUserActive(users[i]);
-            if (isActive) {
-                printf("Login successful.\n");
-                return;
-            } else {
-                printf("User is not active. Please contact the administrator.\n");
-                return;
-            }
-        }
-    }
-    
-    printf("Invalid username or password.\n");
-}
+typedef struct login {
+    int choice;
+    char name[50];
+    char email[60];
+    char password[60];
+    bool flag;
+    char lg_email[50];
+    char lg_pass[50];
+} lg;
 
 int main() {
-    struct User users[MAX_USERS];
-    int numUsers = 0;
-    
-    int choice;
-    do {
-        printf("\n1. Register\n");
-        printf("2. Login\n");
-        printf("3. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        
-        switch (choice) {
-            case 1:
-                registerUser(users, &numUsers);
-                break;
-            case 2:
-                loginUser(users, numUsers);
-                break;
-            case 3:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Invalid choice. Please try again.\n");
-                break;
+    lg lg1;
+
+    printf("1 : Register\n");
+    printf("2 : Login\n");
+    scanf("%d", &lg1.choice);
+
+    if (lg1.choice == 1) {
+        printf("Enter Your Name: ");
+        scanf("%s", lg1.name);
+
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.password);
+
+        printf("Enter Your Flag 0 or 1: ");
+        scanf("%s", &lg1.flag);
+
+        if (lg1.flag != true && lg1.flag != false) {
+            printf("Please Enter a valid flag (0 or 1)\n");
         }
-    } while (choice != 3);
-    
+
+        printf("Please Enter a Data To Login");
+
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.lg_email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.lg_pass);
+
+        if (lg1.flag == 1) {
+            if (lg1.lg_email==lg1.email) {
+                printf("User Logged Successfully\n");
+            } else {
+                printf("Email Or Password Is Wrong\n");
+            }
+        } else {
+            printf("Something Is Wrong\n");
+        }
+
+    } else if (lg1.choice == 2) {
+        printf("Enter Your Email: ");
+        scanf("%s", lg1.lg_email);
+
+        printf("Enter Your Password: ");
+        scanf("%s", lg1.lg_pass);
+
+        if (lg1.flag == 1) {
+            if (lg1.lg_email==lg1.email) {
+                printf("User Logged Successfully\n");
+            } else {
+                printf("Email Or Password Is Wrong\n");
+            }
+        } else {
+            printf("Something Is Wrong\n");
+        }
+    }
+
     return 0;
 }
